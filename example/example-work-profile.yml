@@ -9,6 +9,8 @@ web_auth_policies:
   pi: fresh_scoped_login
 ai_commands_root: ../../ai-commands
 ai_workflows_root: ../../ai-workflows
+agent_identities:
+  config: agent-identities.yml
 governance_rules_repository: example-governance-rules
 governance_rules_surface:
   - AGENTS.md

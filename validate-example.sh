@@ -12,6 +12,9 @@ fail() {
 test -r "${PROFILE}" || fail "Missing example work profile"
 
 required=(
+  "example/agent-identities.yml"
+  "example/validate-agent-identities.py"
+  "example/validate-agent-identities.test.sh"
   "example/commands/source-control/config.yml"
   "example/commands/source-control/identity.example.config"
   "example/projects/dev/example-service/project.yml"
@@ -27,6 +30,8 @@ done
 
 grep -Fq 'ai_commands_root: ../../ai-commands' "${PROFILE}" || fail "Example must use the sibling AI Commands catalog"
 grep -Fq 'ai_workflows_root: ../../ai-workflows' "${PROFILE}" || fail "Example must use the sibling AI Workflows catalog"
+grep -Fq 'config: agent-identities.yml' "${PROFILE}" || fail "Example must reference agent identity configuration"
+python3 "${ROOT}/example/validate-agent-identities.py" "${ROOT}/example/agent-identities.yml" example.com
 grep -Fq 'policy_references:' "${PROFILE}" || fail "Example tracker context must declare policy references"
 grep -Fq 'supported_operations:' "${PROFILE}" || fail "Example tracker context must declare supported operations"
 
